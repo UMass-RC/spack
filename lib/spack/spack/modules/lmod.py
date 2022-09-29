@@ -266,8 +266,8 @@ class LmodFileLayout(BaseFileLayout):
 
         # If we are dealing with a core compiler, return 'Core'
         core_compilers = self.conf.core_compilers
-        if name == "compiler" and str(value) in core_compilers:
-            return "Core"
+        if name == 'compiler' and str(value) in core_compilers:
+            return ''
 
         # CompilerSpec does not have an hash, as we are not allowed to
         # use different flavors of the same compiler
