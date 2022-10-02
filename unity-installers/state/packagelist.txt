@@ -1,7 +1,6 @@
-openmpi+pmi schedulers=slurm
-openmpi+pmi+cuda schedulers=slurm
 openmpi+pmi+legacylaunchers schedulers=slurm
 openmpi+pmi+legacylaunchers+cuda schedulers=slurm
+intel-oneapi-mpi
 cuda@11.0.3
 cuda@11.5.0
 apptainer
@@ -71,4 +70,3 @@ stringtie
 zlib@1.2.11
 raxml-ng^intel-oneapi-mpi
 raxml-ng^openmpi
-netcdf-c%intel^openmpi
