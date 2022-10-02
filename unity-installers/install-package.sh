@@ -3,7 +3,7 @@
 # this is a script that starts batch jobs and --wait's for them, and then cleans up after them.
 
 # USAGE
-# ./install-package [-a architecture] [-f|g] <spack package spec>
+# ./install-package [-a architecture] [-f|g|y] <spack package spec>
 # -a install for a specific architecture rather than read from state/archlist.txt
 # -f spack install --fresh
 # -g get a GPU for the job
@@ -39,7 +39,7 @@ FRESH_OR_REUSE="--reuse"
 GPU=""
 YES="NO"
 PROMPT_USER="true"
-while getopts "a:fg" option; do
+while getopts "a:fgy" option; do
     case $option in
         a) USER_ARCH=$OPTARG;;
         f) FRESH_OR_REUSE="--fresh";; # todo no duplicates
