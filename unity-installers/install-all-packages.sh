@@ -12,9 +12,9 @@ packages=$(<state/packagelist.txt)
 for package in $packages; do
     # if $USER_ARCH is defined
     if [ ! -z ${USER_ARCH+x} ]; then
-        ./install-package.sh -a $USER_ARCH $package
+        ./install-package.sh -y -a $USER_ARCH $package
     else
-        ./install-package.sh $package
+        ./install-package.sh -y $package
     sleep .3
     fi
 done
