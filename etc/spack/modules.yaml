@@ -39,6 +39,8 @@ modules:
         all: "{name}/{version}"
 
       all:
+        suffixes:
+          ~mpi: "no-mpi"
         # don't allow two modules with the same name to be loaded at the same time
         conflict: ["{name}"]
         # The CMake find_package command, such as `find_package(mypkg)`
@@ -52,6 +54,9 @@ modules:
       openblas:
         suffixes:
           +ilp64: "ilp64"
+      boost:
+        suffixes:
+          +system: "system"
 
   ################################ BUGFIXES ########################################
       ncurses:

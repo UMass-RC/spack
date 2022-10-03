@@ -111,7 +111,20 @@ texlive
 slurm
 pmix
 
-# the openmpi and intel-oneapi-mpi lists should look the same!
+############################### no mpi
+fftw~mpi
+hdf~mpi
+gromacs~mpi
+med~mpi
+mmg~mpi
+netcdf-c~mpi
+netcdf-cxx~mpi
+netcdf-fortran~mpi
+openfoam-org~mpi
+raxml-ng~mpi
+scotch~mpi
+
+
 ############################### openmpi
 fftw^openmpi
 hdf5^openmpi
