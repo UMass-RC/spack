@@ -6,9 +6,10 @@ import json
 
 """
 hide implicit spack modules from lmod
+makes a .modulerc in current working directory
 """
 
-MODULERC="/modules/modulefiles/.modulerc"
+# TODO make this robust
 SPACK_MODULEFILE_DIR="/modules/spack-0.18.1/share/spack/modules/linux-ubuntu20.04-x86_64/"
 
 def remove_empty_lines(string: str) -> str:
@@ -101,7 +102,7 @@ def main():
     modules_json_parser = json.loads(modules_json)
     new_modulerc_text = ''
     original_modulerc_text = ''
-    with open(MODULERC, 'r', encoding='utf-8') as modulerc:
+    with open(".modulerc", 'r', encoding='utf-8') as modulerc:
         original_modulerc_text = modulerc.read()
     for module in modules_json_parser:
         #lmod_name = f"{module['name']}/{module['version']}"

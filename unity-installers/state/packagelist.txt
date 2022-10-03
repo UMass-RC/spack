@@ -1,3 +1,18 @@
+# this is moved to the top so that the other mpi's don't make duplicate dependencies
+# TODO find out what modules have `mpi` variants
+############################### no mpi
+fftw~mpi
+hdf5~mpi
+gromacs~mpi
+med~mpi
+mmg~mpi
+netcdf-c~mpi
+netcdf-cxx~mpi
+netcdf-fortran~mpi
+openfoam-org~mpi
+raxml-ng~mpi
+scotch~mpi
+
 ############################### (old) `spack find --explicit target=x86_64`
 angsd@0.935
 autoconf@2.69
@@ -110,19 +125,6 @@ zlib@1.2.11
 texlive
 slurm
 pmix
-
-############################### no mpi
-fftw~mpi
-hdf5~mpi
-gromacs~mpi
-med~mpi
-mmg~mpi
-netcdf-c~mpi
-netcdf-cxx~mpi
-netcdf-fortran~mpi
-openfoam-org~mpi
-raxml-ng~mpi
-scotch~mpi
 
 ############################### openmpi
 fftw^openmpi
