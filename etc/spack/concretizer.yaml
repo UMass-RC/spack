@@ -1,3 +1,5 @@
+# I don't know what effect this has because we do all our installs
+# explicitly with `arch=xxx` but we are doing it with microarch
 concretizer:
   targets:
     granularity: generic

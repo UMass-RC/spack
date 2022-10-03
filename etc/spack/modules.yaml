@@ -19,44 +19,46 @@ modules:
       - CMAKE_PREFIX_PATH
 
   default:
+    # two colons means "I mean business"
     enable::
       - lmod
-    arch_folder: true # still not getting arch folders, I don't know why
+    # still not getting arch folders, I don't know why
+    arch_folder: true
     lmod:
       core_compilers:
+      # this is hard coded into the spack source so that it's not "Core" it's "gcc-9.4.0"
       - "gcc@9.4.0"
       hierarchy:
       - mpi
-      - blas
-      - mkl
+#      - blas
+#      - mkl
       hash_length: 0
       projections:
         cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
         ^cuda: "{name}/{version}+cuda{^cuda.version}"
         all: "{name}/{version}"
+
       all:
         # don't allow two modules with the same name to be loaded at the same time
-        conflict:
-        - "{name}"
-
-        autoload: direct
+        conflict: ["{name}"]
         # The CMake find_package command, such as `find_package(mypkg)`
-        # will search the environment for the mypkg_ROOT environment variable. 
+        # will search the environment for the mypkg_ROOT environment variable.
         # This would really help make the CMake experience much smoother.
         environment:
           set:
-            "{name}_ROOT": "{prefix}" 
+            "{name}_ROOT": "{prefix}"
 
+  ###################### MODULE NAME CONFLICT RESOLUTION ##########################
+      openblas:
+        suffixes:
+          +ilp64: "ilp64"
 
+  ################################ BUGFIXES ########################################
       ncurses:
         filter:
           environment_blacklist: ["LD_LIBRARY_PATH"]
-      # libcuda.so not found, I found it in stubs 
+      # libcuda.so not found, I found it in stubs
       cuda:
         environment:
           append_path:
             LD_LIBRARY_PATH: "{prefix}/lib64/stubs/"
-      # name conflict resolution
-      openblas:
-        suffixes:
-          +ilp64: "ilp64"
