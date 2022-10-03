@@ -1,0 +1,69 @@
+spack:
+
+# TODO how to use this file?
+
+  definitions:
+  - family_arches:
+    - arch=x86_64
+    #- arch=arm
+    #- arch=ppc64el
+
+#  - x86_generic_arches:
+   #- arch=x86_64_v3
+   #- arch=x86_64_v4
+
+  - compilers_specs:
+    - intel-oneapi-compilers
+
+  - compiled_with_oneapi:
+    - llamps
+
+  - blas_providers_specs:
+    - intel-mkl
+    #- netlib-lapack
+    - openblas
+  - use_blas_providers:
+    - ^intel-mkl
+    #- ^netlib-lapack
+    - ^openblas
+
+  - mpi_providers_specs:
+    - openmpi
+    - intel-oneapi-mpi
+  - use_mpi_providers:
+    - ^openmpi
+    - ^intel-oneapi-mpi
+  - mpi_deps_specs:
+    - fftw
+    - hdf5
+    - gromacs
+    - med
+    - mmg
+    - netcdf-c
+    - netcdf-cxx
+    - netcdf-fortran
+    - openfoam-org
+    - raxml-ng
+    - scotch
+
+  - default_specs:
+    - cuda
+    - 
+
+  specs:
+  - $default_specs
+  - $compilers_specs
+  - $mpi_providers_specs
+  - $blas_providers_specs
+  - matrix:
+    - [$blas_deps_specs]
+    - [$use_blas_providers]
+  - matrix:
+    - [$mpi_deps_specs]
+    - [$use_mpi_providers]
+  - matrix:
+    - [$mpi_specs]
+    - [$use_mpi_providers]
+  - matrix:
+    - [$compiled_with_intel]
+    - [%intel]

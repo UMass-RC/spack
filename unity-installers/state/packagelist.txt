@@ -1,6 +1,8 @@
-openmpi+pmi+legacylaunchers schedulers=slurm
-openmpi+pmi+legacylaunchers+cuda schedulers=slurm
+intel-oneapi-compilers
+openmpi
+openmpi+cuda
 intel-oneapi-mpi
+intel-mkl
 cuda@11.0.3
 cuda@11.5.0
 apptainer
@@ -24,9 +26,6 @@ hdf5@1.12.1
 hdf5^openmpi
 hdf5^intel-oneapi-mpi
 hwloc@2.7.1+cuda
-intel-mkl
-intel-oneapi-compilers@2021.4.0
-intel-oneapi-mpi
 julia@1.6.3
 libxml2@2.9.12
 med@4.0.0^openmpi
