@@ -113,7 +113,7 @@ pmix
 
 ############################### no mpi
 fftw~mpi
-hdf~mpi
+hdf5~mpi
 gromacs~mpi
 med~mpi
 mmg~mpi
@@ -123,7 +123,6 @@ netcdf-fortran~mpi
 openfoam-org~mpi
 raxml-ng~mpi
 scotch~mpi
-
 
 ############################### openmpi
 fftw^openmpi
