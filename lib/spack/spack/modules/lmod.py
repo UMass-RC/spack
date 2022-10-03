@@ -238,7 +238,7 @@ class LmodFileLayout(BaseFileLayout):
             arch_folder = '-'.join([
                 str(self.spec.platform),
                 str(self.spec.os),
-                str(self.spec.target.family)
+                str(self.spec.target)
             ])
             return os.path.join(self.dirname(), arch_folder)
         return self.dirname()
