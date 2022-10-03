@@ -223,9 +223,11 @@ class LmodFileLayout(BaseFileLayout):
         arch_folder_conf = spack.config.get("modules:%s:arch_folder" % self.conf.name, True)
         if arch_folder_conf:
             # include an arch specific folder between root and filename
-            arch_folder = "-".join(
-                [str(self.spec.platform), str(self.spec.os), str(self.spec.target.family)]
-            )
+            arch_folder = '-'.join([
+                str(self.spec.platform),
+                str(self.spec.os),
+                str(self.spec.target)
+            ])
             return os.path.join(self.dirname(), arch_folder)
         return self.dirname()
 
