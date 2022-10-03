@@ -14,81 +14,31 @@ compilers:
     environment: {}
     extra_rpaths: []
 
-- compiler:
-    spec: intel@2022.1.0
-    paths:
-      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/icc
-      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/icpc
-      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/ifort
-      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/ifort
-    flags: {}
-    operating_system: ubuntu20.04
-    target: x86_64
-    modules: []
-    environment: {}
-    extra_rpaths: []
-
 #- compiler:
-#    spec: intel@2022.1.0
+#    spec: oneapi@2022.1.0
 #    paths:
-#      cc: /modules/apps/icc/2022.0.1/linux/bin/intel64/icc
-#      cxx: /modules/apps/icc/2022.0.1/linux/bin/intel64/icpc
-#      f77: /modules/apps/icc/2022.0.1/linux/bin/intel64/ifort
-#      fc: /modules/apps/icc/2022.0.1/linux/bin/intel64/ifort
+#      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/icx
+#      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/icpx
+#      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/ifx
+#      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/ifx
 #    flags: {}
 #    operating_system: ubuntu20.04
-#    # ==> Error: Cannot concretize 'zlib' with multiple targets
-#    # Requested 'target=x86_64' and 'target=x86_64_v4'
-#    # this is the only place I can find where target is defined
-#    # and it doesn't go away if I comment this out
-#    #target: x86_64
+#    target: x86_64
 #    modules: []
 #    environment: {}
 #    extra_rpaths: []
 
-- compiler:
-    spec: oneapi@2022.1.0
-    paths:
-      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/icx
-      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/icpx
-      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/ifx
-      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/ifx
-    flags: {}
-    operating_system: ubuntu20.04
-    target: x86_64
-    modules: []
-    environment: {}
-    extra_rpaths: []
-
-# I made these because I keep getting the following error:
-# ==> Error: zlib compiler 'intel@2022.1.0' incompatible with 'target=x86_64_v3'
-# but defining more 'intel@2022.1.0's with other targets didn't change anything
-
+# intel classic compiler does not support family or generic architecture
 #- compiler:
 #    spec: intel@2022.1.0
 #    paths:
-#      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v3/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-fbuihwm2tye2pwn77va5x3u77pas5b2z/compiler/latest/linux/bin/intel64/icc 
-#      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v3/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-fbuihwm2tye2pwn77va5x3u77pas5b2z/compiler/latest/linux/bin/intel64/icpc
-#      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v3/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-fbuihwm2tye2pwn77va5x3u77pas5b2z/compiler/latest/linux/bin/intel64/ifort
-#      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v3/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-fbuihwm2tye2pwn77va5x3u77pas5b2z/compiler/latest/linux/bin/intel64/ifort 
+#      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/icc
+#      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/icpc
+#      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/ifort
+#      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/ifort
 #    flags: {}
 #    operating_system: ubuntu20.04
-#    target: x86_64_v3
+#    target: x86_64
 #    modules: []
 #    environment: {}
 #    extra_rpaths: []
-
-#- compiler:
-#    spec: intel@2022.1.0
-#    paths:
-#      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v4/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-x26m7ogxhmadwx45vlblh2i5d5x2ycsa/compiler/latest/linux/bin/intel64/icc
-#      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v4/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-x26m7ogxhmadwx45vlblh2i5d5x2ycsa/compiler/latest/linux/bin/intel64/icpc
-#      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v4/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-x26m7ogxhmadwx45vlblh2i5d5x2ycsa/compiler/latest/linux/bin/intel64/ifort
-#      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64_v4/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-x26m7ogxhmadwx45vlblh2i5d5x2ycsa/compiler/latest/linux/bin/intel64/ifort 
-#    flags: {}
-#    operating_system: ubuntu20.04
-#    target: x86_64_v4
-#    modules: []
-#    environment: {}
-#    extra_rpaths: []
-
