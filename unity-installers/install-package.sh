@@ -35,8 +35,7 @@ yes_or_no() {
     esac
 }
 
-#FRESH_OR_REUSE="--reuse"
-FRESH_OR_REUSE=""
+FRESH_OR_REUSE="--reuse"
 GPU=""
 YES="NO"
 PROMPT_USER="true"
