@@ -1,0 +1,4 @@
+repos:
+  - $spack/unity-repo
+  - $spack/var/spack/repos/builtin
+

@@ -1,0 +1,62 @@
+modules:
+  # Paths to check when creating modules for all module sets
+  prefix_inspections:
+    bin:
+      - PATH
+    man:
+      - MANPATH
+    share/man:
+      - MANPATH
+    share/aclocal:
+      - ACLOCAL_PATH
+    lib/pkgconfig:
+      - PKG_CONFIG_PATH
+    lib64/pkgconfig:
+      - PKG_CONFIG_PATH
+    share/pkgconfig:
+      - PKG_CONFIG_PATH
+    "":
+      - CMAKE_PREFIX_PATH
+
+  default:
+    enable::
+      - lmod
+    arch_folder: true # still not getting arch folders, I don't know why
+    lmod:
+      core_compilers:
+      - "gcc@9.4.0"
+      hierarchy:
+      - mpi
+      - blas
+      - mkl
+      hash_length: 0
+      projections:
+        cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda: "{name}/{version}+cuda{^cuda.version}"
+        all: "{name}/{version}"
+      all:
+        # don't allow two modules with the same name to be loaded at the same time
+        conflict:
+        - "{name}"
+
+        autoload: direct
+        # The CMake find_package command, such as `find_package(mypkg)`
+        # will search the environment for the mypkg_ROOT environment variable. 
+        # This would really help make the CMake experience much smoother.
+        environment:
+          set:
+            "{name}_ROOT": "{prefix}" 
+
+
+      ncurses:
+        filter:
+          environment_blacklist: ["LD_LIBRARY_PATH"]
+      # libcuda.so not found, I found it in stubs 
+      cuda:
+        environment:
+          append_path:
+            LD_LIBRARY_PATH: "{prefix}/lib64/stubs/"
+      # name conflict resolution
+      openblas:
+        suffixes:
+          +ilp64: "ilp64"
