@@ -1,10 +1,15 @@
 #!/bin/bash
+
+echo this script should not be run anymore, please rewrite it!
+exit
+
 # despite that this modulepath only includes x86_64,
 # it seems to update the cache for other microarches as well
+# THAT WAS A LIE
 HARD_MODULEPATH="/modules/spack/share/spack/modules/linux-ubuntu20.04-x86_64:/modules/modulefiles"
 
 # add the install to the packagelist
-grep -qxF "$SPACK_INSTALL_ARGS" state/packagelist.txt || echo $SPACK_INSTALL_ARGS >> state/packagelist.txt
+#grep -qxF "$SPACK_INSTALL_ARGS" state/packagelist.txt || echo $SPACK_INSTALL_ARGS >> state/packagelist.txt
 echo
 echo "removing implicit modules from Lmod"
 ./hide-implicit-mods.py

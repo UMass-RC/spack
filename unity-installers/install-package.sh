@@ -12,15 +12,16 @@
 # you can also export EXTRA_SBATCH_ARGS and they will be inserted
 
 prompt_yes_or_no() {
-echo $@
-read input
-yes_or_no $input
-result=$?
-if [ $result -eq 2 ]; then
-    prompt_yes_or_no $@ # try again
-else
-    return $result
-fi
+    echo $@
+    read input
+    yes_or_no $input
+    result=$?
+    if [ $result -eq 2 ]; then
+        prompt_yes_or_no $@ # try again
+        return $?
+    else
+        return $result
+    fi
 }
 
 yes_or_no() {
