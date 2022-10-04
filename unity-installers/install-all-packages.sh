@@ -14,11 +14,6 @@ else
     arches=($(ls packagelist))
 fi
 
-echo arches:
-for arch in ${arches[@]}; do
-    echo $arch
-done
-
 for arch in ${arches[@]}; do
     for package in $(cat packagelist/$arch); do
         # if empty/whitespace line or first character is a hash
