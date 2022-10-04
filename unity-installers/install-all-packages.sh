@@ -7,27 +7,28 @@ while getopts "a:" option; do
 done
 
 IFS=$'\n'
-packages=$(<state/packagelist.txt)
-for package in $packages; do
-# bash seems to remove empty lines on its own
-#    if [[ "$package" == '' ]]; then
-#        echo "disregarding '$package'..."
-#        continue
-#    fi
-    if [[ $package =~ ^[[:space:]]+$ ]]; then
-        echo "disregarding '$package'..."
-        continue
-    fi
-    if [[ $package =~ ^[[:space:]]*\#.*$ ]]; then
-        echo "disregarding '$package'..."
-        continue
-    fi
-    # if $USER_ARCH is defined
-    if [ ! -z ${USER_ARCH+x} ]; then
-        ./install-package.sh -y -a $USER_ARCH $package
-    else
-        ./install-package.sh -y $package
-    sleep .3
-    fi
+
+if [ ! -z $USER_ARCH ]; then
+    arches=($USER_ARCH)
+else
+    arches=($(ls packagelist))
+fi
+
+echo arches:
+for arch in ${arches[@]}; do
+    echo $arch
+done
+
+for arch in ${arches[@]}; do
+    for package in $(cat packagelist/$arch); do
+        # if empty/whitespace line or first character is a hash
+        if [[ $package =~ ^[[:space:]]*$ ]] || [[ $package =~ ^[[:space:]]*\#.*$ ]]; then
+            echo "disregarding '$package'..."
+            continue
+        fi
+        echo $package arch=$arch
+        ./install-package.sh -y -a $arch $package > /dev/null
+        #sleep 0.25
+    done
 done
 unset IFS

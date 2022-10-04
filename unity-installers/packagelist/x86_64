@@ -1,6 +1,7 @@
 # this is moved to the top so that the other mpi's don't make duplicate dependencies
 # TODO find out what modules have `mpi` variants
 ############################### no mpi
+boost~mpi
 fftw~mpi
 hdf5~mpi
 gromacs~mpi
@@ -22,7 +23,6 @@ bcftools@1.12
 bedtools2@2.30.0
 bison@3.8.2
 blast-plus@2.12.0
-boost@1.77.0
 bowtie2@2.4.2
 bubblewrap@0.6.1
 bwa@0.7.17
@@ -127,6 +127,7 @@ slurm
 pmix
 
 ############################### openmpi
+boost^openmpi
 fftw^openmpi
 hdf5^openmpi
 gromacs^openmpi
@@ -140,6 +141,7 @@ raxml-ng^openmpi
 scotch^openmpi
 
 ################################ intel-oneapi-mpi
+boost^intel-oneapi-mpi
 fftw^intel-oneapi-mpi
 hdf5^intel-oneapi-mpi
 gromacs^intel-oneapi-mpi

@@ -30,8 +30,8 @@ modules:
       - "gcc@9.4.0"
       hierarchy:
       - mpi
-#      - blas
-#      - mkl
+      - blas
+      - mkl
       hash_length: 0
       projections:
         cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
@@ -57,6 +57,9 @@ modules:
       boost:
         suffixes:
           +system: "system"
+      hdf5:
+        suffixes:
+          +hl: "hl"
 
   ################################ BUGFIXES ########################################
       ncurses:
