@@ -66,7 +66,7 @@ if [ ! -z ${EXTRA_SPACK_ARGS+x} ]; then
     SPACK_INSTALL_ARGS="$EXTRA_SPACK_ARGS $SPACK_INSTALL_ARGS"
 fi
 
-arches=$(<state/archlist.txt)
+arches=$(<state/family-arch-list.txt)
 # if $USER_ARCH is defined, then overwrite the arch list
 if [ ! -z ${USER_ARCH+x} ]; then
     arches=($USER_ARCH)

@@ -57,3 +57,10 @@ packages:
     externals:
     - spec: pmix@3.1.5-1
       prefix: /usr/lib/x86_64-linux-gnu/pmix/
+  # system compiler
+  gcc:
+    version: [9.4.0]
+    buildable: false
+    externals:
+    - spec: gcc@9.4.0
+      prefix: /usr
