@@ -84,4 +84,14 @@ unsetenv("{{ cmd.name }}")
 
 {% block footer %}
 {# In case the module needs to be extended with custom LUA code #}
+
+if (mode() == "load") then
+    local a = "Loading {{spec.name}} version {{spec.version}}"
+    io.stderr:write(a,"\n")
+end
+if (mode() == "unload") then
+    local a = "Removing {{spec.name}} version {{spec.version}}"
+    io.stderr:write(a,"\n")
+end
 {% endblock %}
+

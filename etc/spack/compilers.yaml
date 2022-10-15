@@ -15,12 +15,12 @@ compilers:
     extra_rpaths: []
 
 - compiler:
-    spec: oneapi@2022.1.0
+    spec: oneapi@2021.4.0
     paths:
-      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/icx
-      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/icpx
-      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/ifx
-      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/ifx
+      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/icx
+      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/icpx
+      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/ifx
+      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/ifx
     flags: {}
     operating_system: ubuntu20.04
     target: x86_64
@@ -30,12 +30,12 @@ compilers:
 
 # intel classic compiler does not support family or generic architecture
 #- compiler:
-#    spec: intel@2022.1.0
+#    spec: intel@2021.4.0
 #    paths:
-#      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/icc
-#      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/icpc
-#      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/ifort
-#      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2022.1.0-2dc5zww6ghavvfcr5b2eqvjylp7kvvvo/compiler/latest/linux/bin/intel64/ifort
+#      cc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/intel64/icc
+#      cxx: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/intel64/icpc
+#      f77: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/intel64/ifort
+#      fc: /modules/spack-0.18.1/opt/spack/linux-ubuntu20.04-x86_64/gcc-9.4.0/intel-oneapi-compilers-2021.4.0-k5mxowoqfvirximpuaiq6rn7rw3omeeu/compiler/latest/linux/bin/intel64/ifort
 #    flags: {}
 #    operating_system: ubuntu20.04
 #    target: x86_64

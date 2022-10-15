@@ -1,4 +1,8 @@
 spack:
+  packages:
+    all:
+      target: [x86_64]
+
   definitions:
 # the only way to do multi arch is to make more environments, duplicates of this file
 #  - family_arches:
@@ -10,32 +14,14 @@ spack:
 #   - arch=x86_64_v3
 #   - arch=x86_64_v4
 
-  - compilers_specs:
-    - intel-oneapi-compilers
-
 # llamps isn't ready to be installed yet and it's the only one we need with intel (I think)
 #  - compiled_with_oneapi:
 #    - llamps
 
-# gromacs is already on the mpi list so things would get complicated
-#  - blas_providers_specs:
-#    - intel-mkl
-#    #- netlib-lapack
-#    - openblas
-#  - use_blas_providers:
-#    - ^intel-mkl
-#    #- ^netlib-lapack
-#    - ^openblas
-#  - blas_deps_specs:
-#    - gromacs
-#    -
+  - blas_deps_specs:
+    - gromacs
+    - jags
 
-  - mpi_providers_specs:
-    - openmpi
-    - intel-oneapi-mpi
-  - use_mpi_providers:
-    - ^openmpi
-    - ^intel-oneapi-mpi
   - mpi_deps_specs:
     - fftw
     - hdf5
@@ -97,7 +83,6 @@ spack:
     - intel-mkl@2020.4.304
     - intel-oneapi-tbb@2021.4.0
     - iq-tree@2.1.3
-    - jags@4.3.0
     - julia@1.6.3
     - libtool@2.4.6
     - libxml2@2.9.12
@@ -141,28 +126,21 @@ spack:
     - zlib@1.2.11
 
   specs:
-  - matrix:
-    - [$compilers_specs]
-    - [arch=x86_64]
-  - matrix:
-    - [$externals_specs]
-    - [arch=x86_64]
-  - matrix:
-    - [$mpi_providers_specs]
-    - [arch=x86_64]
-  - matrix:
-    - [$old_spack_installed]
-    - [arch=x86_64]
-#  - $blas_providers_specs
-#  - matrix:
-#    - [$blas_deps_specs]
-#    - [$use_blas_providers]
-#    - [arch=x86_64]
-  - matrix:
-    - [$mpi_deps_specs]
-    - [$use_mpi_providers]
-    - [arch=x86_64]
+  - $externals_specs
+  - $old_spack_installed
+
+  - intel-oneapi-compilers
   - matrix:
     - [$compiled_with_oneapi]
-    - [%oneapi]
-    - [arch=x86_64]
+    - ["%oneapi"]
+
+  - openmpi
+  - intel-oneapi-mpi
+  - matrix:
+    - [$mpi_deps_specs]
+    - ["^openmpi", "^intel-oneapi-mpi"]
+
+  - intel-mkl
+  - matrix:
+    - [$blas_deps_specs]
+    - ["^intel-mkl"]

@@ -11,11 +11,11 @@ IFS=$'\n'
 if [ ! -z $USER_ARCH ]; then
     arches=($USER_ARCH)
 else
-    arches=($(ls packagelist))
+    arches=($(ls state/packagelist))
 fi
 
 for arch in ${arches[@]}; do
-    for package in $(cat packagelist/$arch); do
+    for package in $(cat state/packagelist/$arch); do
         # if empty/whitespace line or first character is a hash
         if [[ $package =~ ^[[:space:]]*$ ]] || [[ $package =~ ^[[:space:]]*\#.*$ ]]; then
             echo "disregarding '$package'..."

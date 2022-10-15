@@ -7,8 +7,6 @@ source ../share/spack/setup-env.sh
 echo "which spack? $(which spack)"
 echo jobid $SLURM_JOB_ID on host $(hostname) by user $(whoami) on $(date)
 
-set -x
-
 spack install --verbose -y $SPACK_INSTALL_ARGS
 
 #--keep-stage will leave the build logs in /scratch, which will get cleaned up automatically
