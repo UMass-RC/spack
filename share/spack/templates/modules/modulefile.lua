@@ -93,5 +93,14 @@ if (mode() == "unload") then
     local a = "Removing {{spec.name}} version {{spec.version}}"
     io.stderr:write(a,"\n")
 end
+
+if (mode() == "load") then
+    local readme_file_name = "/modules/modulefiles/{{spec.name}}/{{spec.version}}_readme.txt"
+    local readme_file = io.open(readme_file_name,"r")
+    if (readme_file ~= nil) then
+        io.stderr:write(readme_file:read("*a"))
+    end
+    readme_file:close()
+end
 {% endblock %}
 
