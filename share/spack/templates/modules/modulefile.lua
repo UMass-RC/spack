@@ -95,12 +95,12 @@ if (mode() == "unload") then
 end
 
 if (mode() == "load") then
-    local readme_file_name = "/modules/modulefiles/{{spec.name}}/{{spec.version}}_readme.txt"
+    local readme_file_name = "/modules/modulefiles/libpciaccess/0.16_readme.txt"
     local readme_file = io.open(readme_file_name,"r")
     if (readme_file ~= nil) then
         io.stderr:write(readme_file:read("*a"))
+        io.close(readme_file)
     end
-    readme_file:close()
 end
 {% endblock %}
 

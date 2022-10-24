@@ -19,6 +19,8 @@ modules:
       - CMAKE_PREFIX_PATH
 
   default:
+    #roots:
+    #  lmod: /modules/spack/share/spack/lmod/
     # two colons means "I mean business"
     enable::
       - lmod
@@ -33,6 +35,10 @@ modules:
       - blas
       hash_length: 0
       projections:
+        # MODULE NAME CONFLICT RESOLUTION
+        mpc: "{name}/{version}-{hash:3}"
+        libpciaccess: "{name}/{version}-{hash:3}"
+        # end module name conflict resolution
         cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
         ^cuda: "{name}/{version}+cuda{^cuda.version}"
         all: "{name}/{version}"
@@ -50,6 +56,9 @@ modules:
             "{name}_ROOT": "{prefix}"
 
   ###################### MODULE NAME CONFLICT RESOLUTION ##########################
+      openmpi:
+        suffixes:
+          +legacylaunchers: "mpirun"
       openblas:
         suffixes:
           +ilp64: "ilp64"
@@ -59,6 +68,9 @@ modules:
       hdf5:
         suffixes:
           +hl: "hl"
+      cairo:
+        suffixes:
+          +gobject: "gob"
 
   ################################ BUGFIXES ########################################
       ncurses:
