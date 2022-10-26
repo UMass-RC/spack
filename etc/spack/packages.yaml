@@ -29,7 +29,7 @@ packages:
     # default mpi would like our slurm to have pmix but it doesn't, it'll have to make do with pmi
     - "+pmi"
     - "schedulers=slurm"
-    - "+legacylaunchers"
+    #- "+legacylaunchers"
 
   ################################## EXTERNALS #########################################
   # IF WE'RE USING ENVIRONMENTS ANYMORE, be sure that these externals are up
