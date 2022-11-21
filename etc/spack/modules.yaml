@@ -19,8 +19,10 @@ modules:
       - CMAKE_PREFIX_PATH
 
   default:
+    # uncomment me to start making modulefiles for production
     #roots:
     #  lmod: /modules/spack/share/spack/lmod/
+
     # two colons means "I mean business"
     enable::
       - lmod
@@ -31,6 +33,7 @@ modules:
       # this is hard coded into the spack source so that it's not "Core" it's "gcc-9.4.0"
       - "gcc@9.4.0"
       hierarchy:
+      - compiler
       - mpi
       - blas
       hash_length: 0
@@ -38,7 +41,7 @@ modules:
         # MODULE NAME CONFLICT RESOLUTION
         mpc: "{name}/{version}-{hash:3}"
         libpciaccess: "{name}/{version}-{hash:3}"
-        # end module name conflict resolution
+
         cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
         ^cuda: "{name}/{version}+cuda{^cuda.version}"
         all: "{name}/{version}"
