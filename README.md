@@ -1,5 +1,7 @@
 # Unity Spack
 
+Complete Unity Spack ready to be cloned anywhere and produce modulefiles in central directory `/modules/spack/share/spack/lmod`. This allows us stay flexible with future Spack updates.
+
 ### Configuration ###
 
 `etc/spack/*.yaml`
