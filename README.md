@@ -1,42 +1,22 @@
-# <img src="https://cdn.rawgit.com/spack/spack/develop/share/spack/logo/spack-logo.svg" width="64" valign="middle" alt="Spack"/> Spack
+# Unity Spack
 
-[![Unit Tests](https://github.com/spack/spack/workflows/linux%20tests/badge.svg)](https://github.com/spack/spack/actions)
-[![Bootstrapping](https://github.com/spack/spack/actions/workflows/bootstrap.yml/badge.svg)](https://github.com/spack/spack/actions/workflows/bootstrap.yml)
-[![codecov](https://codecov.io/gh/spack/spack/branch/develop/graph/badge.svg)](https://codecov.io/gh/spack/spack)
-[![Containers](https://github.com/spack/spack/actions/workflows/build-containers.yml/badge.svg)](https://github.com/spack/spack/actions/workflows/build-containers.yml)
-[![Read the Docs](https://readthedocs.org/projects/spack/badge/?version=latest)](https://spack.readthedocs.io)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Slack](https://slack.spack.io/badge.svg)](https://slack.spack.io)
+### Configuration ###
 
-Spack is a multi-platform package manager that builds and installs
-multiple versions and configurations of software. It works on Linux,
-macOS, and many supercomputers. Spack is non-destructive: installing a
-new version of a package does not break existing installations, so many
-configurations of the same package can coexist.
+`etc/spack/*.yaml`
 
-Spack offers a simple "spec" syntax that allows users to specify versions
-and configuration options. Package files are written in pure Python, and
-specs allow package authors to write a single script for many different
-builds of the same package.  With Spack, you can build your software
-*all* the ways you want to.
+### Install scripts ###
 
-See the
-[Feature Overview](https://spack.readthedocs.io/en/latest/features.html)
-for examples and highlights.
+`unity-installers/`
 
-To install spack and your first package, make sure you have Python.
-Then:
+### Package Repo ###
 
-    $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git
-    $ cd spack/bin
-    $ ./spack install zlib
+`unity-repo/`
 
-Documentation
-----------------
+### Source code changes ###
 
-[**Full documentation**](https://spack.readthedocs.io/) is available, or
-run `spack help` or `spack help --all`.
+* ["gcc/9.4.0" rather than "Core" for the module hierarchy](https://github.com/UMass-RC/spack/commit/8368bdae39be5f628b267cfdd9aa8ca485815a1b)
 
+<<<<<<< HEAD
 For a cheat sheet on Spack syntax, run `spack help --spec`.
 
 Tutorial
@@ -147,3 +127,6 @@ See [LICENSE-MIT](https://github.com/spack/spack/blob/develop/LICENSE-MIT),
 SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 LLNL-CODE-811652
+=======
+* [modules placed in cpu-family specific directories](https://github.com/UMass-RC/spack/commit/5857e44663a1d3a182026b3b5b2a0a9b936faaf6)
+>>>>>>> Update README.md
