@@ -224,7 +224,7 @@ class LmodFileLayout(BaseFileLayout):
         if arch_folder_conf:
             # include an arch specific folder between root and filename
             arch_folder = "-".join(
-                [str(self.spec.platform), str(self.spec.os), str(self.spec.target.family)]
+                [str(self.spec.platform), str(self.spec.os), str(self.spec.target)]
             )
             return os.path.join(self.dirname(), arch_folder)
         return self.dirname()
@@ -267,7 +267,7 @@ class LmodFileLayout(BaseFileLayout):
         # If we are dealing with a core compiler, return 'Core'
         core_compilers = self.conf.core_compilers
         if name == "compiler" and str(value) in core_compilers:
-            return "Core"
+            return "gcc/9.4.0"
 
         # CompilerSpec does not have an hash, as we are not allowed to
         # use different flavors of the same compiler
