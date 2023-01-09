@@ -1,5 +1,5 @@
 config:
   build_stage:
-  - $TMP
+  - $tempdir/$user/spack-stage
   install_tree:
     root: /modules/spack/opt/spack
