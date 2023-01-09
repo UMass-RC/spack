@@ -1,0 +1,146 @@
+spack:
+  packages:
+    all:
+      target: [x86_64]
+
+  definitions:
+# the only way to do multi arch is to make more environments, duplicates of this file
+#  - family_arches:
+#    - arch=x86_64
+#    - arch=arm
+#    - arch=ppc64el
+
+#  - x86_generic_arches:
+#   - arch=x86_64_v3
+#   - arch=x86_64_v4
+
+# llamps isn't ready to be installed yet and it's the only one we need with intel (I think)
+#  - compiled_with_oneapi:
+#    - llamps
+
+  - blas_deps_specs:
+    - gromacs
+    - jags
+
+  - mpi_deps_specs:
+    - fftw
+    - hdf5
+    - gromacs
+    - med
+    - mmg
+    - netcdf-c
+    - netcdf-cxx
+    - netcdf-fortran
+    - openfoam-org
+    - raxml-ng
+    - scotch
+
+  - externals_specs:
+    - texlive
+    - slurm
+    - pmix
+
+# (old) spack find --explicit target=x86_64
+  - old_spack_installed:
+    - angsd@0.935
+    - autoconf@2.69
+    - automake@1.16.3
+    - bbmap@38.63
+    - bcftools@1.12
+    - bedtools2@2.30.0
+    - bison@3.8.2
+    - blast-plus@2.12.0
+    - boost@1.77.0
+    - bowtie2@2.4.2
+    - bubblewrap@0.6.1
+    - bwa@0.7.17
+    - cgns@4.2.0
+    - clustal-omega@1.2.4
+    - cmake@3.21.4
+    - cuda@10.2.89
+    - cudnn@8.2.4.15-11.4
+    - diffutils@3.8
+    - dmtcp@2.6.0
+    - eigen@3.4.0
+    - entrezdirect@10.7.20190114
+    - expat@2.4.1
+    - fastqc@0.11.9
+    - findutils@4.8.0
+    - fio@3.26
+    - flex@2.6.3
+    - freebayes@1.3.5
+    - freeglut@3.2.2
+    - gatk@4.2.2.0
+    - gcc@10.3.0
+    - gmake@4.3
+    - go@1.17.2
+    - grace@5.1.25
+    - graphviz@2.49.0
+    - grass@7.8.5
+    - gsl@2.6
+    - htslib@1.12
+    - hwloc@2.7.1
+    - intel-mkl@2020.4.304
+    - intel-oneapi-tbb@2021.4.0
+    - iq-tree@2.1.3
+    - julia@1.6.3
+    - libtool@2.4.6
+    - libxml2@2.9.12
+    - m4@1.4.19
+    - mafft@7.481
+    - meson@0.60.0
+    - nasm@2.15.05
+    - ncbi-magicblast@1.5.0
+    - ncbi-rmblastn@2.11.0
+    - netlib-lapack@3.9.1
+    - nextflow@21.04.3
+    - ninja@1.10.2
+    - ocaml@4.13.1
+    - openblas@0.3.18
+    - openjdk@11.0.12_7
+    - openssh@8.2p1
+    - parallel@20210922
+    - pasta@1.9.0
+    - patchelf@0.13
+    - picard@2.26.2
+    - pkgconf@1.8.0
+    - psmc@2016-1-21
+    - python@2.7.18
+    - qt@5.15.2
+    - qualimap@2.2.1
+    - r@3.6.3
+    - rsem@1.3.1
+    - rust@1.60.0
+    - samtools@1.13
+    - singularity@3.8.3
+    - spades@3.15.3
+    - sratoolkit@2.10.9
+    - stacks@2.53
+    - star@2.7.6a
+    - stringtie@1.3.4d
+    - subversion@1.14.1
+    - swig@4.0.2
+    - trimmomatic@0.39
+    - ucx@1.12.1
+    - valgrind@3.18.1
+    - zlib@1.2.11
+
+  specs:
+  - $externals_specs
+  - $old_spack_installed
+
+  - intel-oneapi-compilers
+  - matrix:
+    - [$compiled_with_oneapi]
+    - ["%oneapi"]
+
+  - openmpi
+  - intel-oneapi-mpi
+  - matrix:
+    - [$mpi_deps_specs]
+    - ["^openmpi", "^intel-oneapi-mpi"]
+
+  - intel-mkl
+  - matrix:
+    - [$blas_deps_specs]
+    - ["^intel-mkl"]
