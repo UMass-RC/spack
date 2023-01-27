@@ -84,3 +84,13 @@ modules:
         environment:
           append_path:
             LD_LIBRARY_PATH: "{prefix}/lib64/stubs/"
+
+  ############################# CUSTOM ENV. VARS #####################################
+      apptainer:
+        environment:
+          set:
+            APPTAINER_BINDPATH: "/work:/home:/nese:/project:/gypsum:/scratch:/modules:/nas:/datasets"
+      singularity:
+        environment:
+          set:
+            SINGULARITY_BINDPATH: "/work:/home:/nese:/project:/gypsum:/scratch:/modules:/nas:/datasets"
