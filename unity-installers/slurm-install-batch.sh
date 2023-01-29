@@ -11,7 +11,7 @@ source $PREFIX/../share/spack/setup-env.sh
 echo "which spack? $(which spack)"
 echo jobid $SLURM_JOB_ID on host $(hostname) by user $(whoami) on $(date)
 if [[ $SPACK_DEBUG == "-d" ]]; then
-    env
+    printenv
     set -x
 fi
 spack $SPACK_DEBUG install --verbose -y $SPACK_INSTALL_ARGS

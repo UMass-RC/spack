@@ -1,16 +1,28 @@
 #!/bin/bash
 
-# this is a script that starts batch jobs and --wait's for them, and then cleans up after them.
+read -r -d '' help <<- 'HELP'
+	this is a script that starts batch jobs which install things via spack.
+	install-package.sh [-a architecture] [-d|f|g|h|y] [spack args]
+	The batch script will do `spack install [spack args]`.
+	it will confirm with you the job it is about to submit before it submits, unless you use `-y`.
 
-# USAGE
-# ./install-package [-a architecture] [-f|g|y] <optional spack arguments> <spack package spec>
-# -a install for a specific architecture rather than read from state/archlist.txt
-# -d debug mode
-# -f spack install --fresh
-# -g get a GPU for the job
-# -y don't ask "yes or no"
+	examples:
+	    install-package.sh apptainer
+		install-package.sh apptainer@1.1.5+suid
+	    install-package.sh --use-buildcache apptainer@1.1.5+suid
+	    EXTRA_SBATCH_ARGS="--nodelist=cpu001" install-package.sh apptainer@1.1.5+suid
 
-# you can also export EXTRA_SBATCH_ARGS and they will be inserted
+	spack install args -> https://spack.readthedocs.io/en/latest/command_index.html#spack-install
+	what is a spack spec? -> https://spack.readthedocs.io/en/latest/basic_usage.html#sec-specs
+
+	options:
+	    -a install for a specific architecture rather than read from state/archlist.txt
+	    -d debug
+	    -f spack install --fresh
+	    -g get a GPU for the job
+	    -h display this message
+	    -y don't ask "yes or no"
+HELP
 
 PREFIX="/modules/spack-0.19/unity-installers"
 NUM_CORES="4"
@@ -46,12 +58,13 @@ yes_or_no() {
 
 FRESH_OR_REUSE="--reuse"
 GPU=""
-while getopts "a:dfgy" option; do
+while getopts "a:dfghy" option; do
     case $option in
         a) USER_ARCH=$OPTARG;;
         d) export SPACK_DEBUG="-d";;
         f) FRESH_OR_REUSE="--fresh";; # todo no duplicates
         g) GPU="-G 1";; # todo no duplicates
+        h) echo "$help"; exit;;
 	    y) DO_SKIP_PROMPT="true"
     esac
 done
