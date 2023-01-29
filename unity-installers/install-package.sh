@@ -9,8 +9,8 @@ read -r -d '' help <<- 'HELP'
 	examples:
 	    install-package.sh apptainer
 		install-package.sh apptainer@1.1.5+suid
-	    EXTRA_SPACK_ARGS="--use-buildcache" install-package.sh apptainer@1.1.5+suid
-	    EXTRA_SBATCH_ARGS="--nodelist=cpu001" EXTRA_SPACK_ARGS="--use-buildcache"  install-package.sh apptainer@1.1.5+suid
+	    EXTRA_SPACK_ARGS="--use-buildcache never" install-package.sh apptainer@1.1.5+suid
+	    EXTRA_SBATCH_ARGS="--nodelist=cpu001" install-package.sh apptainer@1.1.5+suid
 
 	spack install args -> https://spack.readthedocs.io/en/latest/command_index.html#spack-install
 	what is a spack spec? -> https://spack.readthedocs.io/en/latest/basic_usage.html#sec-specs
