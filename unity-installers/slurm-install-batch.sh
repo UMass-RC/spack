@@ -14,6 +14,7 @@ if [[ $SPACK_DEBUG == "-d" ]]; then
     printenv
     set -x
 fi
+echo "spack $SPACK_DEBUG install --verbose -y $SPACK_INSTALL_ARGS"
 spack $SPACK_DEBUG install --verbose -y $SPACK_INSTALL_ARGS
 
 #--keep-stage will leave the build logs in /scratch, which will get cleaned up automatically
