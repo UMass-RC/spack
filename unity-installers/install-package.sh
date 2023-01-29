@@ -1,33 +1,48 @@
 #!/bin/bash
 
-read -r -d '' help <<- 'HELP'
-	this is a script that starts batch jobs which install things via spack.
-	install-package.sh [-a architecture] [-d|f|g|h|y] [spack args]
-	The batch script will do `spack install [spack args]`.
-	it will confirm with you the job it is about to submit before it submits, unless you use `-y`.
-
-	examples:
-	    install-package.sh apptainer
-		install-package.sh apptainer@1.1.5+suid
-	    EXTRA_SPACK_ARGS="--use-buildcache never" install-package.sh apptainer@1.1.5+suid
-	    EXTRA_SBATCH_ARGS="--nodelist=cpu001" install-package.sh apptainer@1.1.5+suid
-
-	spack install args -> https://spack.readthedocs.io/en/latest/command_index.html#spack-install
-	what is a spack spec? -> https://spack.readthedocs.io/en/latest/basic_usage.html#sec-specs
-
-	options:
-	    -a install for a specific architecture rather than read from state/archlist.txt
-	    -d debug
-	    -f spack install --fresh
-	    -g get a GPU for the job
-	    -h display this message
-	    -y don't ask "yes or no"
-HELP
-
 PREFIX="/modules/spack-0.19/unity-installers"
-NUM_CORES="4"
+OS="linux-ubuntu20.04"
+ARCHITECTURES="x86_64"
+CPUS_PER_TASK="4"
 TIME="1-0"
 PARTITION="building"
+FRESH_OR_REUSE="--reuse"
+GPU=""
+
+read -r -d '' help <<- HELP
+	I submit Slurm batch jobs which install things via spack.
+	You can \`tail -f [log file]\` to watch it go.
+
+	usage:
+	install-package.sh [spack package spec]
+    install-package.sh [-a arch] [-c cpus] [-p partition] [-t time] [-d|f|h|y] [spack package spec]
+
+	examples:
+	    install-package.sh -yf -a ppc64el apptainer@1.1.5+suid
+	    EXTRA_SPACK_ARGS="--use-buildcache never" install-package.sh apptainer@1.1.5+suid
+        EXTRA_SBATCH_ARGS="-G 1" install-package.sh apptainer@1.1.5+suid
+
+	spack package spec -> https://spack.readthedocs.io/en/latest/basic_usage.html#sec-specs
+	spack install args -> https://spack.readthedocs.io/en/latest/command_index.html#spack-install
+	sbatch args -> https://slurm.schedmd.com/sbatch.html
+
+	options:
+	    -a      comma separated list of architectures to be added to spack specs
+	    -d      debug
+	    -f      spack install --fresh (default --reuse)
+	    -h      display this message
+	    -y      yes
+
+	options forwarded to sbatch (don't use EXTRA_SBATCH_ARGS for these):
+	    -c		cpus            default: "$CPUS_PER_TASK"
+	    -p		partition       default: "$PARTITION"
+	    -t		time            default: "$TIME"
+
+	environment variables:
+	    EXTRA_SPACK_ARGS: \`spack install \$EXTRA_SPACK_ARGS [spack package spec]\`
+	    EXTRA_SBATCH_ARGS: \`sbatch \$EXTRA_SBATCH_ARGS slurm-install-batch.sh\`
+
+HELP
 
 set -e # exit if any command fails
 
@@ -56,56 +71,85 @@ yes_or_no() {
     esac
 }
 
-FRESH_OR_REUSE="--reuse"
-GPU=""
-while getopts "a:dfghy" option; do
+if (( $EUID == 0 )); then
+    echo "do not run this as root!"
+    exit 1
+fi
+
+if [ ! -d "$PREFIX" ]; then
+    echo "PREFIX \"$PREFIX\" does not exist!"
+    exit 1
+fi
+
+if [ $# -eq 0 ]; then
+    echo "not enough arguments!"
+    echo "$help"
+    exit 1
+fi
+
+PACKAGE_SPEC="${@: -1}" # get last argument
+set -- "${@:1:$(($#-1))}" # remove last argument
+
+while getopts "a:c:dfhp:t:y" option; do
     case $option in
-        a) USER_ARCH=$OPTARG;;
-        d) export SPACK_DEBUG="-d";;
-        f) FRESH_OR_REUSE="--fresh";; # todo no duplicates
-        g) GPU="-G 1";; # todo no duplicates
+        a) ARCHITECTURES=$OPTARG;;
+		c) CPUS_PER_TASK=$OPTARG;;
+        d) DEBUG="-d";;
+        f) FRESH_OR_REUSE="--fresh";;
         h) echo "$help"; exit;;
+		p) PARTITION=$OPTARG;;
+		t) TIME=$OPTARG;;
 	    y) DO_SKIP_PROMPT="true"
     esac
 done
-shift $(($OPTIND - 1)) # remove processed args from $@
+shift $(($OPTIND - 1)) # remove processed arguments from the list
 
-if (( $# > 1 )); then
+if (( $# > 0 )); then
     echo "too many arguments!"
-    exit
+    echo "$help"
+    exit 1
 fi
 
-PACKAGE_SPEC="$1"
-JOB_NAME="${PACKAGE_SPEC// /_}" # find and replace spaces with underscores
-
-arches=$(<$PREFIX/state/family-arch-list.txt)
-# if $USER_ARCH is defined, then overwrite the arch list
-if [ ! -z ${USER_ARCH+x} ]; then
-    arches=($USER_ARCH)
+BATCH_SCRIPT_PATH=$(mktemp)
+# just for peace of mind, shouldn't ever happen
+if [ ! -e "$BATCH_SCRIPT_PATH" ]; then
+    echo "mktemp was supposed to create file \"$BATCH_SCRIPT_PATH\" but it doesn't exist!"
+    exit 1
 fi
+cat <<- BATCH_SCRIPT > $BATCH_SCRIPT_PATH
+	#!/bin/bash
+	echo "jobid \$SLURM_JOB_ID on host \$(hostname) by user \$(whoami) on \$(date)"
+	source $PREFIX/../share/spack/setup-env.sh
+	echo "spack $DEBUG install \$SPACK_INSTALL_ARGS"
+	spack $DEBUG install \$SPACK_INSTALL_ARGS
+	rm $BATCH_SCRIPT_PATH # delete myself
+BATCH_SCRIPT
 
-for arch in ${arches[@]}; do
-    export SPACK_INSTALL_ARGS="$FRESH_OR_REUSE $EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=linux-ubuntu20.04-$arch"
+IFS="," # comma separated list
+for arch in $ARCHITECTURES; do
+    if [ -z $(echo $arch | xargs) ]; then continue; fi # ignore blank
+    SPACK_INSTALL_ARGS="$FRESH_OR_REUSE --verbose -y $EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=$OS-$arch"
     # include time so that `ls` sorts chronologically
-    LOG_FILE="$PREFIX/logs/$(date +%s)-${JOB_NAME}-${arch}.out"
+    LOG_FILE="$PREFIX/logs/$(date +%s)-${PACKAGE_SPEC}-${arch}.out"
     log_files+=("$LOG_FILE")
     this_job="\
-sbatch --job-name="$JOB_NAME" --output="$LOG_FILE" --partition="$PARTITION" \
---cpus-per-task="$NUM_CORES" --time="$TIME" --export=ALL $GPU \
-$EXTRA_SBATCH_ARGS $PREFIX/slurm-install-batch.sh"
+sbatch --job-name=\"$PACKAGE_SPEC\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
+--cpus-per-task=\"$CPUS_PER_TASK\" --time=\"$TIME\" \
+--export=\"SPACK_INSTALL_ARGS='$SPACK_INSTALL_ARGS'\" $EXTRA_SBATCH_ARGS \
+$BATCH_SCRIPT_PATH"
     echo "$this_job"
     echo
     JOBS+=("$this_job")
 done
+unset IFS
 
 if [[ $DO_SKIP_PROMPT == "true" ]] || prompt_yes_or_no "do you want to submit these jobs?"; then
     echo
     IFS=$'\n'
-    # there must be a reason why I didn't just do `for job in ${JOBS[@]}`
     for i in ${!JOBS[@]}; do
         job=${JOBS[$i]}
         logfile=${log_files[$i]}
-            eval "$job"
+        eval "$job"
         echo $logfile
         echo
     done
