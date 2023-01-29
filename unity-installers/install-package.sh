@@ -136,7 +136,7 @@ for arch in $ARCHITECTURES; do
     this_job="\
 sbatch --job-name=\"$PACKAGE_SPEC\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
 --cpus-per-task=\"$CPUS_PER_TASK\" --time=\"$TIME\" \
---export=\"SPACK_INSTALL_ARGS='$SPACK_INSTALL_ARGS'\" $EXTRA_SBATCH_ARGS \
+--export=\"SPACK_INSTALL_ARGS=$SPACK_INSTALL_ARGS\" $EXTRA_SBATCH_ARGS \
 $BATCH_SCRIPT_PATH"
     echo "$this_job"
     echo
