@@ -85,7 +85,7 @@ if [ ! -z ${USER_ARCH+x} ]; then
 fi
 
 for arch in ${arches[@]}; do
-    export SPACK_INSTALL_ARGS="$FRESH_OR_REUSE arch=linux-ubuntu20.04-$arch $EXTRA_SPACK_ARGS $PACKAGE_SPEC"
+    export SPACK_INSTALL_ARGS="$FRESH_OR_REUSE $EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=linux-ubuntu20.04-$arch"
     # include time so that `ls` sorts chronologically
     LOG_FILE="$PREFIX/logs/$(date +%s)-${JOB_NAME}-${arch}.out"
     log_files+=("$LOG_FILE")
