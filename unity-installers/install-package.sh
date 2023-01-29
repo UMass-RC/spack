@@ -131,6 +131,7 @@ for arch in $ARCHITECTURES; do
     SPACK_INSTALL_ARGS="$FRESH_OR_REUSE --verbose -y $EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=$OS-$arch"
     # include time so that `ls` sorts chronologically
     LOG_FILE="$PREFIX/logs/$(date +%s)-${PACKAGE_SPEC}-${arch}.out"
+    touch $LOG_FILE # make sure we have permissions to the log file
     log_files+=("$LOG_FILE")
     this_job="\
 sbatch --job-name=\"$PACKAGE_SPEC\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
