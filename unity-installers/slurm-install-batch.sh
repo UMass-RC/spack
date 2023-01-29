@@ -3,11 +3,18 @@
 # why is this here?
 #source /etc/profile # refresh $MODULEPATH
 
-source ../share/spack/setup-env.sh
+PREFIX="/modules/spack-0.19/unity-installers"
+
+set -e # exit if any command fails
+
+source $PREFIX/../share/spack/setup-env.sh
 echo "which spack? $(which spack)"
 echo jobid $SLURM_JOB_ID on host $(hostname) by user $(whoami) on $(date)
-
-spack install --verbose -y $SPACK_INSTALL_ARGS
+if [[ $SPACK_DEBUG == "-d" ]]; then
+    env
+    set -x
+fi
+spack $SPACK_DEBUG install --verbose -y $SPACK_INSTALL_ARGS
 
 #--keep-stage will leave the build logs in /scratch, which will get cleaned up automatically
 # but it only does so if the installation was a success, and that's exactly when I don't want the logs
