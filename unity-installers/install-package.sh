@@ -9,8 +9,8 @@ read -r -d '' help <<- 'HELP'
 	examples:
 	    install-package.sh apptainer
 		install-package.sh apptainer@1.1.5+suid
-	    install-package.sh --use-buildcache apptainer@1.1.5+suid
-	    EXTRA_SBATCH_ARGS="--nodelist=cpu001" install-package.sh --use-buildcache apptainer@1.1.5+suid
+	    EXTRA_SPACK_ARGS="--use-buildcache" install-package.sh apptainer@1.1.5+suid
+	    EXTRA_SBATCH_ARGS="--nodelist=cpu001" EXTRA_SPACK_ARGS="--use-buildcache"  install-package.sh apptainer@1.1.5+suid
 
 	spack install args -> https://spack.readthedocs.io/en/latest/command_index.html#spack-install
 	what is a spack spec? -> https://spack.readthedocs.io/en/latest/basic_usage.html#sec-specs
@@ -70,9 +70,13 @@ while getopts "a:dfghy" option; do
 done
 shift $(($OPTIND - 1)) # remove processed args from $@
 
-export SPACK_INSTALL_ARGS="$@ $FRESH_OR_REUSE arch=linux-ubuntu20.04-$arch"
-ARGS="$@" # for some reason I can't use $@ directly in the {find/replace}
-JOB_NAME="${ARGS// /_}" # find and replace spaces with underscores
+if (( $# > 1 )); then
+    echo "too many arguments!"
+    exit
+fi
+
+PACKAGE_SPEC="$1"
+JOB_NAME="${PACKAGE_SPEC// /_}" # find and replace spaces with underscores
 
 arches=$(<$PREFIX/state/family-arch-list.txt)
 # if $USER_ARCH is defined, then overwrite the arch list
@@ -81,6 +85,7 @@ if [ ! -z ${USER_ARCH+x} ]; then
 fi
 
 for arch in ${arches[@]}; do
+    export SPACK_INSTALL_ARGS="$FRESH_OR_REUSE arch=linux-ubuntu20.04-$arch $EXTRA_SPACK_ARGS $PACKAGE_SPEC"
     # include time so that `ls` sorts chronologically
     LOG_FILE="$PREFIX/logs/$(date +%s)-${JOB_NAME}-${arch}.out"
     log_files+=("$LOG_FILE")
