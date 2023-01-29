@@ -82,7 +82,7 @@ fi
 
 for arch in ${arches[@]}; do
     # include time so that `ls` sorts chronologically
-    LOG_FILE="$PREFIX/logs/$(date +%s)-${JOB_NAME}_${arch}.out"
+    LOG_FILE="$PREFIX/logs/$(date +%s)-${JOB_NAME}-${arch}.out"
     log_files+=("$LOG_FILE")
     this_job="\
 sbatch --job-name="$JOB_NAME" --output="$LOG_FILE" --partition="$PARTITION" \
