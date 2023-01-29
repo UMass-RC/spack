@@ -96,12 +96,13 @@ done
 if [[ $DO_SKIP_PROMPT == "true" ]] || prompt_yes_or_no "do you want to submit these jobs?"; then
     echo
     IFS=$'\n'
+    # there must be a reason why I didn't just do `for job in ${JOBS[@]}`
     for i in ${!JOBS[@]}; do
-	job=${JOBS[$i]}
-	logfile=${log_files[$i]}
-        eval "$job"
-	echo $logfile
-	echo
+        job=${JOBS[$i]}
+        logfile=${log_files[$i]}
+            eval "$job"
+        echo $logfile
+        echo
     done
     unset IFS
 fi
