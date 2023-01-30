@@ -128,7 +128,9 @@ BATCH_SCRIPT
 IFS="," # comma separated list
 for arch in $ARCHITECTURES; do
     if [ -z $(echo $arch | xargs) ]; then continue; fi # ignore blank
-    SPACK_INSTALL_ARGS="$FRESH_OR_REUSE --verbose -y $EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=$OS-$arch"
+    SPACK_INSTALL_ARGS="\
+$FRESH_OR_REUSE --verbose -y --keep-stage --fail-fast \
+$EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=$OS-$arch"
     # include time so that `ls` sorts chronologically
     LOG_FILE="$PREFIX/logs/$(date +%s)-${PACKAGE_SPEC}-${arch}.out"
     touch $LOG_FILE # make sure we have permissions to the log file
