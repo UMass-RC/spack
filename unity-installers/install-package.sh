@@ -8,6 +8,7 @@ TIME="1-0"
 PARTITION="building"
 FRESH_OR_REUSE="--reuse"
 GPU=""
+MEMORY="32G"
 
 read -r -d '' help <<- HELP
 	I submit Slurm batch jobs which install things via spack.
@@ -137,7 +138,7 @@ $EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=$OS-$arch"
     log_files+=("$LOG_FILE")
     this_job="\
 sbatch --job-name=\"$PACKAGE_SPEC\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
---cpus-per-task=\"$CPUS_PER_TASK\" --time=\"$TIME\" \
+--cpus-per-task=\"$CPUS_PER_TASK\" --mem=\"$MEMORY\" --time=\"$TIME\" -N 1 \
 --export=\"SPACK_INSTALL_ARGS=$SPACK_INSTALL_ARGS\" $EXTRA_SBATCH_ARGS \
 $BATCH_SCRIPT_PATH"
     echo "$this_job"
