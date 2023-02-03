@@ -146,7 +146,7 @@ $EXTRA_SPACK_ARGS $PACKAGE_SPEC target=$arch"
 	touch $LOG_FILE # make sure we have permissions to the log file
 	log_files+=("$LOG_FILE")
 	this_job="\
-sbatch --job-name=\"$PACKAGE_SPEC\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
+sbatch --job-name=\"$PACKAGE_SPEC-$arch\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
 --cpus-per-task=\"$CPUS_PER_TASK\" --mem=\"$MEMORY\" --time=\"$TIME\" -N 1 \
 --export=\"SPACK_INSTALL_ARGS=$SPACK_INSTALL_ARGS\" --constraint=$arch \
 $EXTRA_SBATCH_ARGS $BATCH_SCRIPT_PATH"
