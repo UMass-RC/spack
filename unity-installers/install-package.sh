@@ -19,7 +19,7 @@ read -r -d '' help <<- HELP
     install-package.sh [-a arch] [-c cpus] [-p partition] [-t time] [-d|f|h|y] [spack package spec]
 
 	examples:
-	    install-package.sh -yf -a ppc64el apptainer@1.1.5+suid
+	    install-package.sh -yf -a ppc64le apptainer@1.1.5+suid
 	    EXTRA_SPACK_ARGS="--use-buildcache never" install-package.sh apptainer@1.1.5+suid
         EXTRA_SBATCH_ARGS="-G 1" install-package.sh apptainer@1.1.5+suid
 
