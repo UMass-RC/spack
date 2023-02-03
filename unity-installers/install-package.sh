@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PREFIX="/modules/spack-0.19/unity-installers"
-OS="linux-ubuntu20.04"
 ARCHITECTURES="x86_64,ppc64le,aarch64"
 CPUS_PER_TASK="4"
 TIME="1-0"
@@ -141,7 +140,7 @@ for arch in $ARCHITECTURES; do
 	if [ -z $(echo $arch | xargs) ]; then continue; fi # ignore blank
 	SPACK_INSTALL_ARGS="\
 $FRESH_OR_REUSE -y --keep-stage --fail-fast \
-$EXTRA_SPACK_ARGS $PACKAGE_SPEC arch=$OS-$arch"
+$EXTRA_SPACK_ARGS $PACKAGE_SPEC target=$arch"
 	# include time so that `ls` sorts chronologically
 	LOG_FILE="$PREFIX/logs/$(date +%s)-${PACKAGE_SPEC}-${arch}.out"
 	touch $LOG_FILE # make sure we have permissions to the log file
