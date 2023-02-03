@@ -59,7 +59,6 @@ packages:
   # system compiler
   gcc:
     version: [9.4.0]
-    buildable: false
     externals:
     - spec: gcc@9.4.0
       prefix: /usr
