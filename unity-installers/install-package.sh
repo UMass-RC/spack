@@ -2,7 +2,7 @@
 
 PREFIX="/modules/spack-0.19/unity-installers"
 OS="linux-ubuntu20.04"
-ARCHITECTURES="x86_64"
+ARCHITECTURES="x86_64,ppc64le,aarch64"
 CPUS_PER_TASK="4"
 TIME="1-0"
 PARTITION="building"
