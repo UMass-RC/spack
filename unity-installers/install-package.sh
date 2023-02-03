@@ -148,8 +148,8 @@ $EXTRA_SPACK_ARGS $PACKAGE_SPEC target=$arch"
 	this_job="\
 sbatch --job-name=\"$PACKAGE_SPEC\" --output=\"$LOG_FILE\" --partition=\"$PARTITION\" \
 --cpus-per-task=\"$CPUS_PER_TASK\" --mem=\"$MEMORY\" --time=\"$TIME\" -N 1 \
---export=\"SPACK_INSTALL_ARGS=$SPACK_INSTALL_ARGS\" $EXTRA_SBATCH_ARGS \
-$BATCH_SCRIPT_PATH"
+--export=\"SPACK_INSTALL_ARGS=$SPACK_INSTALL_ARGS\" --constraint=$arch \
+$EXTRA_SBATCH_ARGS $BATCH_SCRIPT_PATH"
 	echo "$this_job"
 	echo
 	JOBS+=("$this_job")
