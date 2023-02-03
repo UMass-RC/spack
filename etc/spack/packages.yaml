@@ -26,6 +26,7 @@ packages:
     variants:
     # default mpi would like our slurm to have pmix but it doesn't, it'll have to make do with pmi
     - +pmi
+    - +cuda
     - fabrics=ucx
     - schedulers=slurm
     #- "+legacylaunchers"
