@@ -124,16 +124,16 @@ cat <<- BATCH_SCRIPT > $BATCH_SCRIPT_PATH
 	echo "spack $DEBUG install \$SPACK_INSTALL_ARGS"
 	spack $DEBUG install \$SPACK_INSTALL_ARGS
 	if [ ! \$? -eq 0 ]; then
-        # copy spack-build-out and spack-build-env in case we need to make a github issue
-        stage_dir=/scratch/\$(hostname)/\$SLURM_JOB_ID/\$(whoami)/spack-stage/*
-        ARGS_LIST=(\$SPACK_INSTALL_ARGS)
-        # 2nd to last argument is the package name, last argument is the target architecture
-        stage_copy_dir=$PREFIX/logs/failed-builds/\$(date +%s)-\${ARGS_LIST[-2]}-\${ARGS_LIST[-1]}
-        mkdir -p \$stage_copy_dir
-        cp \$stage_dir/spack-build-out.txt \$stage_copy_dir/
-        cp \$stage_dir/spack-build-env.txt \$stage_copy_dir/
-        echo "spack logs copied to \$stage_copy_dir/"
-    fi
+	    # copy spack-build-out and spack-build-env in case we need to make a github issue
+	    stage_dir=/scratch/\$(hostname)/\$SLURM_JOB_ID/\$(whoami)/spack-stage/*
+	    ARGS_LIST=(\$SPACK_INSTALL_ARGS)
+	    # 2nd to last argument is the package name, last argument is the target architecture
+	    stage_copy_dir=$PREFIX/logs/failed-builds/\$(date +%s)-\${ARGS_LIST[-2]}-\${ARGS_LIST[-1]}
+	    mkdir -p \$stage_copy_dir
+	    cp \$stage_dir/spack-build-out.txt \$stage_copy_dir/
+	    cp \$stage_dir/spack-build-env.txt \$stage_copy_dir/
+	    echo "spack logs copied to \$stage_copy_dir/"
+	fi
 BATCH_SCRIPT
 
 IFS="," # comma separated list
