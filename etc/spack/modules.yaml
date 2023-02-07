@@ -44,6 +44,8 @@ modules:
         pkgconf: "{name}/{version}-{hash:3}"
 
         cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda^ucx: "{name}/{version}+cuda{^cuda.version}+ucx"
+        ^ucx: "{name}/{version}+ucx"
         ^cuda: "{name}/{version}+cuda{^cuda.version}"
         all: "{name}/{version}"
 
