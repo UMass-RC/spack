@@ -556,6 +556,7 @@ class Openmpi(AutotoolsPackage, CudaPackage):
         env.set('MPICXX', join_path(self.prefix.bin, 'mpic++'))
         env.set('MPIF77', join_path(self.prefix.bin, 'mpif77'))
         env.set('MPIF90', join_path(self.prefix.bin, 'mpif90'))
+        env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib)
 
     def setup_dependent_build_environment(self, env, dependent_spec):
         self.setup_run_environment(env)
