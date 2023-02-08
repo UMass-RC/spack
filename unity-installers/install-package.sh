@@ -128,10 +128,14 @@ cat <<- BATCH_SCRIPT > $BATCH_SCRIPT_PATH
 		ARGS_LIST=(\$SPACK_INSTALL_ARGS)
 		# 2nd to last argument is the package name, last argument is the target architecture
 		stage_copy_dir=$PREFIX/logs/failed-builds/\$(date +%s)-\${ARGS_LIST[-2]}-\${ARGS_LIST[-1]}
-		mkdir -p \$stage_copy_dir
-		cp \$stage_dir/spack-build-out.txt \$stage_copy_dir/
-		cp \$stage_dir/spack-build-env.txt \$stage_copy_dir/
-		echo "spack logs copied to \$stage_copy_dir/"
+		if [ -d \$stage_dir ]; then
+			mkdir -p \$stage_copy_dir
+			cp \$stage_dir/spack-build-out.txt \$stage_copy_dir/
+			cp \$stage_dir/spack-build-env.txt \$stage_copy_dir/
+			echo "spack logs copied to \$stage_copy_dir/"
+		else
+			echo "spack stage directory \$stage_dir doesn't exist!"
+		fi
 	fi
 BATCH_SCRIPT
 
