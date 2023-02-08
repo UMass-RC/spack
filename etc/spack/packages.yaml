@@ -58,6 +58,8 @@ packages:
       prefix: /usr/lib/x86_64-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=ppc64le
       prefix: /usr/lib/ppc64le-linux-gnu/pmix/
+    - spec: pmix@3.1.5-1 target=aarch64
+      prefix: /usr/lib/aarch64-linux-gnu/pmix/
   # system compiler
   gcc:
     version: [9.4.0]
