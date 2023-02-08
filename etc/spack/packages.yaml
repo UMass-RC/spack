@@ -60,6 +60,9 @@ packages:
       prefix: /usr/lib/powerpc64le-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/pmix/
+  # WARNING: EXTERNAL PMIX SUPPORT REQUIRES USE OF EXTERNAL LIBEVENT LIBRARY.
+  # THIS LIBRARY MUST POINT TO THE SAME ONE USED TO BUILD PMIX
+  # OR ELSE UNPREDICTABLE BEHAVIOR MAY RESULT
   libevent:
     version: [2.1.7]
     externals:
