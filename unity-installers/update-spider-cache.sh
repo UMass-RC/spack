@@ -1,6 +1,6 @@
 #!/bin/bash
-# the microarch modules allow Lmod to crawl through the spack modules for each microarch
-# when we make the hierarchy change, we just have to change the microarch modules
-export MODULEPATH="/modules/modulefiles"
+# assuming that all module directories are accessible by loading modules out of /modules/modulefiles
+# spack directories: module load microarch, URI directories: module load uri, ...
+MODULEPATH="/modules/modulefiles"
 # -D debug
-source /modules/lmod/lmod/lmod/libexec/update_lmod_system_cache_files -D $MODULEPATH
+source /usr/share/lmod/lmod/libexec/update_lmod_system_cache_files -D $MODULEPATH
