@@ -60,6 +60,15 @@ packages:
       prefix: /usr/lib/powerpc64le-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/pmix/
+  libevent:
+    version: [2.1.7]
+    externals:
+    - spec: libevent@2.1.7 target=x86_64
+      prefix: /usr/lib/x86_64-linux-gnu/
+    - spec: libevent@2.1.7 target=ppc64le
+      prefix: /usr/lib/powerpc64le-linux-gnu/
+    - spec: libevent@2.1.7 target=aarch64
+      prefix: /usr/lib/aarch64-linux-gnu/
   # system compiler
   gcc:
     version: [9.4.0]
