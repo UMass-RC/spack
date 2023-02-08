@@ -57,7 +57,7 @@ packages:
     - spec: pmix@3.1.5-1 target=x86_64
       prefix: /usr/lib/x86_64-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=ppc64le
-      prefix: /usr/lib/ppc64le-linux-gnu/pmix/
+      prefix: /usr/lib/powerpc64le-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/pmix/
   # system compiler
@@ -66,12 +66,6 @@ packages:
     externals:
     - spec: gcc@9.4.0
       prefix: /usr
-  # orca: make it use the installed openmpi
-  orca:
-    externals:
-    - spec: openmpi@4.1.2
-      modules:
-      - openmpi/4.1.3
 
   # various system installs
   tar:
