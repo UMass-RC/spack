@@ -49,6 +49,8 @@ packages:
       prefix: /usr
     - spec: slurm@20.02.7 target=ppc64le
       prefix: /usr/lib/powerpc64le-linux-gnu/
+    - spec: slurm@20.02.7 target=aarch64
+      prefix: /usr/lib/aarch64-linux-gnu/
   # this was part of getting openmpi to work, don't know what would happen if we removed it
   pmix:
     version: [3.1.5-1]
@@ -60,6 +62,7 @@ packages:
       prefix: /usr/lib/powerpc64le-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/pmix/
+    require: "^libevent@2.1.7"
   # WARNING: EXTERNAL PMIX SUPPORT REQUIRES USE OF EXTERNAL LIBEVENT LIBRARY.
   # THIS LIBRARY MUST POINT TO THE SAME ONE USED TO BUILD PMIX
   # OR ELSE UNPREDICTABLE BEHAVIOR MAY RESULT
