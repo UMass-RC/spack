@@ -5,23 +5,30 @@ packages:
       read: world
       write: user
       group: package-maintainer
-    # despite that there is only one compiler in the list, spack will still decide to
-    # use other compilers that it finds in compilers.yaml
-    compiler: [gcc@9.4.0]
-    providers:
-      mpi: [openmpi]
-      blas: [openblas]
     variants:
     #- cuda_arch=52,61,70,75,80,86 # the ones we have in unity as of 8/2022
     - cuda_arch=52,53,60,61,62,70,72,75,80,86 # all existing arches >= 52 as of 8/2022
+    
+  # FORCE DEFAULTS
+  ############################################################################################
+  # spack likes to ignore preferences, so we make them non negotiable
+  # comment these out if you want to do something different
+  all:
+    require: "%gcc@9.4.0"
+  mpi:
+    require: openmpi
+  blas:
+    require: openblas
 
-  ################################ BUGFIXES ########################################
+  # BUGFIXES
+  ############################################################################################
   # raises error, cannot set suid with group writable
   openssh:
     permissions:
       write: user
 
-  ############################# REQUIRED VARIANTS ####################################
+  # DEFAULT VARIANTS
+  ############################################################################################
   openmpi:
     variants:
     # default mpi would like our slurm to have pmix but it doesn't, it'll have to make do with pmi
@@ -31,18 +38,18 @@ packages:
     - schedulers=slurm
     #- "+legacylaunchers"
 
-  ################################## EXTERNALS #########################################
+  # EXTERNALS
+  ############################################################################################
   # the texlive spack install was broken at the time
   texlive:
-    version: [20220000]
     buildable: false
     externals:
     - spec: texlive@20220000
       modules:
       - texlive/2022
   # it's important that we all use the same slurm
+  # when Unity slurm is updated this version number should also be updated
   slurm:
-    version: [20.02.7]
     buildable: false
     externals:
     - spec: slurm@20.02.7 target=x86_64
@@ -51,9 +58,9 @@ packages:
       prefix: /usr/lib/powerpc64le-linux-gnu/
     - spec: slurm@20.02.7 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/
+
   # this was part of getting openmpi to work, don't know what would happen if we removed it
   pmix:
-    version: [3.1.5-1]
     buildable: false
     externals:
     - spec: pmix@3.1.5-1 target=x86_64
@@ -62,27 +69,22 @@ packages:
       prefix: /usr/lib/powerpc64le-linux-gnu/pmix/
     - spec: pmix@3.1.5-1 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/pmix/
-    require: "^libevent@2.1.7"
-  # WARNING: EXTERNAL PMIX SUPPORT REQUIRES USE OF EXTERNAL LIBEVENT LIBRARY.
-  # THIS LIBRARY MUST POINT TO THE SAME ONE USED TO BUILD PMIX
-  # OR ELSE UNPREDICTABLE BEHAVIOR MAY RESULT
+
   libevent:
-    version: [2.1.7]
     externals:
+    # I don't want buildable: false because there are other libevents in use
+    # spack can't make 2.1.7 on it's own so the only option is the external
     - spec: libevent@2.1.7 target=x86_64
       prefix: /usr/lib/x86_64-linux-gnu/
     - spec: libevent@2.1.7 target=ppc64le
       prefix: /usr/lib/powerpc64le-linux-gnu/
     - spec: libevent@2.1.7 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/
-  # system compiler
+
   gcc:
-    version: [9.4.0]
     externals:
     - spec: gcc@9.4.0
       prefix: /usr
-
-  # various system installs
   tar:
     externals:
     - spec: tar@1.30
