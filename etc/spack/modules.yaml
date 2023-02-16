@@ -82,11 +82,6 @@ modules:
       ncurses:
         filter:
           environment_blacklist: ["LD_LIBRARY_PATH"]
-      # libcuda.so not found, I found it in stubs
-      cuda:
-        environment:
-          append_path:
-            LD_LIBRARY_PATH: "{prefix}/lib64/stubs/"
 
   ############################# CUSTOM ENV. VARS #####################################
       apptainer:
