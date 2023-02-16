@@ -33,7 +33,6 @@ modules:
       # this is hard coded into the spack source so that it's not "Core" it's "gcc-9.4.0"
       - "gcc@9.4.0"
       hierarchy:
-      - compiler
       - mpi
       - blas
       hash_length: 0
