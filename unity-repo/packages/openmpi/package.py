@@ -15,6 +15,8 @@ from spack.package import *
 
 PMI_DEV_DIR="/usr/include/slurm"
 PMI_LIB_DIR="/usr/lib/x86_64-linux-gnu"
+PMI_PPC_LIB_DIR="/usr/lib/powerpc64le-linux-gnu"
+PMI_ARM_LIB_DIR="/usr/lib/aarch64-linux-gnu"
 
 class Openmpi(AutotoolsPackage, CudaPackage):
     """An open source Message Passing Interface implementation.
@@ -920,7 +922,14 @@ class Openmpi(AutotoolsPackage, CudaPackage):
             #config_args.append("--with-pmi={0}".format(spec["slurm"].prefix))
             # system slurm pmi2.h parent directory
             config_args.append(f'--with-pmi={PMI_DEV_DIR}')
-            config_args.append(f'--with-pmi-libdir={PMI_LIB_DIR}')
+            if self.spec.target.family == "x86_64":
+                config_args.append(f'--with-pmi-libdir={PMI_LIB_DIR}')
+            elif  self.spec.target.family == "ppc64le":
+                config_args.append(f'--with-pmi-libdir={PMI_PPC_LIB_DIR}')
+            elif  self.spec.target.family == "aarch64":
+                config_args.append(f'--with-pmi-libdir={PMI_ARM_LIB_DIR}')
+            else:
+                raise InstallError("Where is your PMI?")
         else:
             config_args.extend(self.with_or_without("pmi"))
 
