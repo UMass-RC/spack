@@ -90,24 +90,24 @@ modules:
           set:
             SINGULARITY_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
 
-  linux-ubuntu20.04-x86_64:
+  arch=linux-ubuntu20.04-x86_64:
     roots:
       lmod: "$spack/modules/x86_64"
-  linux-ubuntu20.04-aarch64:
+  arch=linux-ubuntu20.04-aarch64:
     roots:
       lmod: "$spack/modules/aarch64"
-  linux-ubuntu20.04-ppc64le:
+  arch=linux-ubuntu20.04-ppc64le:
     roots:
       lmod: "$spack/modules/ppc64le"
-  linux-ubuntu20.04-x86_64_v2:
+  arch=linux-ubuntu20.04-x86_64_v2:
     roots:
       lmod: "$spack/modules/x86_64_v2"
-  linux-ubuntu20.04-x86_64_v3:
+  arch=linux-ubuntu20.04-x86_64_v3:
     roots:
       lmod: "$spack/modules/x86_64_v3"
-  linux-ubuntu20.04-x86_64_v4:
+  arch=linux-ubuntu20.04-x86_64_v4:
     roots:
       lmod: "$spack/modules/x86_64_v4"
-  cascadelake:
+  arch=linux-ubuntu20.04-cascadelake:
     roots:
       lmod: "$spack/modules/cascadelake"
