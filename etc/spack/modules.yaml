@@ -1,28 +1,12 @@
 modules:
-  # Paths to check when creating modules for all module sets
+  # if path exists, prepend_path in modulefile
   prefix_inspections:
-    bin:
-      - PATH
-    man:
-      - MANPATH
-    share/man:
-      - MANPATH
-    share/aclocal:
-      - ACLOCAL_PATH
-    lib/pkgconfig:
-      - PKG_CONFIG_PATH
-    lib64/pkgconfig:
-      - PKG_CONFIG_PATH
-    share/pkgconfig:
-      - PKG_CONFIG_PATH
-    "":
-      - CMAKE_PREFIX_PATH
+    lib:
+    - "LD_LIBRARY_PATH"
+    lib64:
+    - "LD_LIBRARY_PATH"
 
   default:
-    # uncomment me to start making modulefiles for production
-    #roots:
-    #  lmod: /modules/spack/share/spack/lmod/
-
     # two colons means "I mean business"
     enable::
       - lmod
@@ -50,7 +34,7 @@ modules:
 
       all:
         suffixes:
-          ~mpi: "no-mpi"
+          ~mpi: "noMPI"
         # don't allow two modules with the same name to be loaded at the same time
         conflict: ["{name}"]
         # The CMake find_package command, such as `find_package(mypkg)`
@@ -60,7 +44,8 @@ modules:
           set:
             "{name}_ROOT": "{prefix}"
 
-  ###################### MODULE NAME CONFLICT RESOLUTION ##########################
+  # MODULE NAME CONFLICT RESOLUTION
+  ############################################################################################
       openmpi:
         suffixes:
           +legacylaunchers: "mpirun"
@@ -80,12 +65,14 @@ modules:
         suffixes:
           ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
 
-  ################################ BUGFIXES ########################################
+  # BUGFIXES
+  ############################################################################################
       ncurses:
         filter:
           environment_blacklist: ["LD_LIBRARY_PATH"]
 
-  ############################# CUSTOM ENV. VARS #####################################
+  # CUSTOM ENV. VARS
+  ############################################################################################
       apptainer:
         environment:
           set:
