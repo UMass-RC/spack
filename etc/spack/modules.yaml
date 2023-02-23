@@ -6,11 +6,34 @@ modules:
     lib64:
     - "LD_LIBRARY_PATH"
 
+  linux-ubuntu20.04-x86_64:
+    roots:
+      lmod: "$spack/modules/x86_64"
+  linux-ubuntu20.04-aarch64:
+    roots:
+      lmod: "$spack/modules/aarch64"
+  linux-ubuntu20.04-ppc64le:
+    roots:
+      lmod: "$spack/modules/ppc64le"
+  arch=linux-ubuntu20.04-x86_64_v2:
+    roots:
+      lmod: "$spack/modules/x86_64_v2"
+  arch=linux-ubuntu20.04-x86_64_v3:
+    roots:
+      lmod: "$spack/modules/x86_64_v3"
+  arch=linux-ubuntu20.04-x86_64_v4:
+    roots:
+      lmod: "$spack/modules/x86_64_v4"
+  target=cascadelake:
+    roots:
+      lmod: "$spack/modules/cascadelake"
+
   default:
     # two colons means "I mean business"
     enable::
       - lmod
     arch_folder: false
+
     lmod:
       core_compilers:
       # this is hard coded into the spack source so that it's not "Core" it's "gcc-9.4.0"
@@ -31,21 +54,6 @@ modules:
         environment:
           set:
             "{name}_ROOT": "{prefix}"
-
-      linux-ubuntu20.04-x86_64:
-        roots: "$spack/modules/x86_64"
-      linux-ubuntu20.04-aarch64:
-        roots: "$spack/modules/aarch64"
-      linux-ubuntu20.04-ppc64le:
-        roots: "$spack/modules/ppc64le"
-      arch=linux-ubuntu20.04-x86_64_v2:
-        roots: "$spack/modules/x86_64_v2"
-      arch=linux-ubuntu20.04-x86_64_v3:
-        roots: "$spack/modules/x86_64_v3"
-      arch=linux-ubuntu20.04-x86_64_v4:
-        roots: "$spack/modules/x86_64_v4"
-      target=cascadelake:
-        roots: "$spack/modules/cascadelake"
 
 
       # -{hash:0}
