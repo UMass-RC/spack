@@ -15,16 +15,16 @@ modules:
   linux-ubuntu20.04-ppc64le:
     roots:
       lmod: "$spack/modules/ppc64le"
-  arch=linux-ubuntu20.04-x86_64_v2:
+  linux-ubuntu20.04-x86_64_v2:
     roots:
       lmod: "$spack/modules/x86_64_v2"
-  arch=linux-ubuntu20.04-x86_64_v3:
+  linux-ubuntu20.04-x86_64_v3:
     roots:
       lmod: "$spack/modules/x86_64_v3"
-  arch=linux-ubuntu20.04-x86_64_v4:
+  linux-ubuntu20.04-x86_64_v4:
     roots:
       lmod: "$spack/modules/x86_64_v4"
-  target=cascadelake:
+  cascadelake:
     roots:
       lmod: "$spack/modules/cascadelake"
 
