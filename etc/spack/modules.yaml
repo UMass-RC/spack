@@ -17,24 +17,13 @@ modules:
       # this is hard coded into the spack source so that it's not "Core" it's "gcc-9.4.0"
       - "gcc@9.4.0"
       hierarchy:
+      # if I add compiler here, for some reason it breaks the whole hierarchy
+      # but if I don't add compiler here, compilers are part of the hierarchy regardless
+      # - compiler
       - mpi
       - blas
-      hash_length: 0
-      projections:
-        # MODULE NAME CONFLICT RESOLUTION
-        mpc: "{name}/{version}-{hash:3}"
-        libpciaccess: "{name}/{version}-{hash:3}"
-        pkgconf: "{name}/{version}-{hash:3}"
-
-        cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
-        ^cuda^ucx: "{name}/{version}+cuda{^cuda.version}+ucx"
-        ^ucx: "{name}/{version}+ucx"
-        ^cuda: "{name}/{version}+cuda{^cuda.version}"
-        all: "{name}/{version}"
 
       all:
-        suffixes:
-          ~mpi: "noMPI"
         # don't allow two modules with the same name to be loaded at the same time
         conflict: ["{name}"]
         # The CMake find_package command, such as `find_package(mypkg)`
@@ -44,11 +33,31 @@ modules:
           set:
             "{name}_ROOT": "{prefix}"
 
-  # MODULE NAME CONFLICT RESOLUTION
-  ############################################################################################
+      # -{hash:0}
+      hash_length: 0
+      projections:
+        # MODULE NAME CONFLICT RESOLUTION
+        mpc: "{name}/{version}-{hash:3}"
+        libpciaccess: "{name}/{version}-{hash:3}"
+        pkgconf: "{name}/{version}-{hash:3}"
+
+        cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda: "{name}/{version}+cuda{^cuda.version}"
+        all: "{name}/{version}"
+
       openmpi:
         suffixes:
           +legacylaunchers: "mpirun"
+          ^ucx: "ucx"
+      lammps:
+        suffixes:
+          ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
+      all:
+        suffixes:
+          ~mpi: "noMPI"
+
+  # MODULE NAME CONFLICT RESOLUTION
+  ############################################################################################
       openblas:
         suffixes:
           +ilp64: "ilp64"
@@ -61,9 +70,7 @@ modules:
       cairo:
         suffixes:
           +gobject: "gob"
-      lammps:
-        suffixes:
-          ~asphere~body~class2~colloid~compress~coreshell~dipole: "basic"
+
 
   # BUGFIXES
   ############################################################################################
