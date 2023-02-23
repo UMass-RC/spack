@@ -2,9 +2,9 @@ modules:
   # if path exists, prepend_path in modulefile
   prefix_inspections:
     lib:
-    - "LD_LIBRARY_PATH"
+      - "LD_LIBRARY_PATH"
     lib64:
-    - "LD_LIBRARY_PATH"
+      - "LD_LIBRARY_PATH"
 
   linux-ubuntu20.04-x86_64:
     roots:
