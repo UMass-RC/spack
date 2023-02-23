@@ -6,28 +6,6 @@ modules:
     lib64:
       - "LD_LIBRARY_PATH"
 
-  linux-ubuntu20.04-x86_64:
-    roots:
-      lmod: "$spack/modules/x86_64"
-  linux-ubuntu20.04-aarch64:
-    roots:
-      lmod: "$spack/modules/aarch64"
-  linux-ubuntu20.04-ppc64le:
-    roots:
-      lmod: "$spack/modules/ppc64le"
-  linux-ubuntu20.04-x86_64_v2:
-    roots:
-      lmod: "$spack/modules/x86_64_v2"
-  linux-ubuntu20.04-x86_64_v3:
-    roots:
-      lmod: "$spack/modules/x86_64_v3"
-  linux-ubuntu20.04-x86_64_v4:
-    roots:
-      lmod: "$spack/modules/x86_64_v4"
-  cascadelake:
-    roots:
-      lmod: "$spack/modules/cascadelake"
-
   default:
     # two colons means "I mean business"
     enable::
@@ -111,3 +89,25 @@ modules:
         environment:
           set:
             SINGULARITY_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
+
+  linux-ubuntu20.04-x86_64:
+    roots:
+      lmod: "$spack/modules/x86_64"
+  linux-ubuntu20.04-aarch64:
+    roots:
+      lmod: "$spack/modules/aarch64"
+  linux-ubuntu20.04-ppc64le:
+    roots:
+      lmod: "$spack/modules/ppc64le"
+  linux-ubuntu20.04-x86_64_v2:
+    roots:
+      lmod: "$spack/modules/x86_64_v2"
+  linux-ubuntu20.04-x86_64_v3:
+    roots:
+      lmod: "$spack/modules/x86_64_v3"
+  linux-ubuntu20.04-x86_64_v4:
+    roots:
+      lmod: "$spack/modules/x86_64_v4"
+  cascadelake:
+    roots:
+      lmod: "$spack/modules/cascadelake"
