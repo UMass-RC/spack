@@ -10,8 +10,6 @@ modules:
     # two colons means "I mean business"
     enable::
       - lmod
-    roots:
-      lmod: "$spack/modules/{target}"
     arch_folder: false
     lmod:
       core_compilers:
@@ -33,6 +31,22 @@ modules:
         environment:
           set:
             "{name}_ROOT": "{prefix}"
+
+      linux-ubuntu20.04-x86_64:
+        roots: "$spack/modules/x86_64"
+      linux-ubuntu20.04-aarch64:
+        roots: "$spack/modules/aarch64"
+      linux-ubuntu20.04-ppc64le:
+        roots: "$spack/modules/ppc64le"
+      arch=linux-ubuntu20.04-x86_64_v2:
+        roots: "$spack/modules/x86_64_v2"
+      arch=linux-ubuntu20.04-x86_64_v3:
+        roots: "$spack/modules/x86_64_v3"
+      arch=linux-ubuntu20.04-x86_64_v4:
+        roots: "$spack/modules/x86_64_v4"
+      target=cascadelake:
+        roots: "$spack/modules/cascadelake"
+
 
       # -{hash:0}
       hash_length: 0
