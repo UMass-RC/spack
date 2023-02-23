@@ -11,7 +11,7 @@ modules:
     enable::
       - lmod
     # still not getting arch folders, I don't know why
-    arch_folder: true
+    arch_folder: false
     lmod:
       core_compilers:
       # this is hard coded into the spack source so that it's not "Core" it's "gcc-9.4.0"
