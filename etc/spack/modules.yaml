@@ -10,7 +10,8 @@ modules:
     # two colons means "I mean business"
     enable::
       - lmod
-    # still not getting arch folders, I don't know why
+    roots:
+      lmod: "$spack/modules/{target}"
     arch_folder: false
     lmod:
       core_compilers:
