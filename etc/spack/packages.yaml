@@ -47,6 +47,7 @@ packages:
     - spec: texlive@20220000
       modules:
       - texlive/2022
+
   # it's important that we all use the same slurm
   # when Unity slurm is updated this version number should also be updated
   slurm:
@@ -80,6 +81,14 @@ packages:
     - spec: libevent@2.1.7 target=aarch64
       prefix: /usr/lib/aarch64-linux-gnu/
 
+  # For IB nodes; recommended by https://mvapich.cse.ohio-state.edu/userguide/userguide_spack/
+  rdma-core:
+    buildable: False
+    externals:
+    - spec: rdma-core@28.0
+      prefix: /usr
+
+  # `spack external find`
   gcc:
     externals:
     - spec: gcc@9.4.0
