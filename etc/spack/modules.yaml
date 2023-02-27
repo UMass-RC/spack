@@ -40,13 +40,13 @@ modules:
       hash_length: 0
       projections:
         # MODULE NAME CONFLICT RESOLUTION
-        mpc: "{arch}/{name}/{version}-{hash:3}"
-        libpciaccess: "{arch}/{name}/{version}-{hash:3}"
-        pkgconf: "{arch}/{name}/{version}-{hash:3}"
+        mpc: "{architecture}/{name}/{version}-{hash:3}"
+        libpciaccess: "{architecture}/{name}/{version}-{hash:3}"
+        pkgconf: "{architecture}/{name}/{version}-{hash:3}"
 
-        cudnn: "{arch}/{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
-        ^cuda: "{arch}/{name}/{version}+cuda{^cuda.version}"
-        all: "{arch}/{name}/{version}"
+        cudnn: "{architecture}/{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda: "{architecture}/{name}/{version}+cuda{^cuda.version}"
+        all: "{architecture}/{name}/{version}"
 
       openmpi:
         suffixes:
