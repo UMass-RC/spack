@@ -11,6 +11,8 @@ modules:
     enable::
       - lmod
     arch_folder: false
+    roots:
+      lmod: $spack/modules
 
     lmod:
       core_compilers:
@@ -38,13 +40,13 @@ modules:
       hash_length: 0
       projections:
         # MODULE NAME CONFLICT RESOLUTION
-        mpc: "{name}/{version}-{hash:3}"
-        libpciaccess: "{name}/{version}-{hash:3}"
-        pkgconf: "{name}/{version}-{hash:3}"
+        mpc: "{target}/{name}/{version}-{hash:3}"
+        libpciaccess: "{target}/{name}/{version}-{hash:3}"
+        pkgconf: "{target}/{name}/{version}-{hash:3}"
 
-        cudnn: "{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
-        ^cuda: "{name}/{version}+cuda{^cuda.version}"
-        all: "{name}/{version}"
+        cudnn: "{target}/{name}/{version}" # don't want "cudnn/8.2.4.15-11.4+cuda11.4.2"
+        ^cuda: "{target}/{name}/{version}+cuda{^cuda.version}"
+        all: "{target}/{name}/{version}"
 
       openmpi:
         suffixes:
@@ -89,25 +91,3 @@ modules:
         environment:
           set:
             SINGULARITY_BINDPATH: "/work,/home,/nese,/project,/gypsum,/scratch,/modules,/nas,/datasets"
-
-  arch=linux-ubuntu20.04-x86_64:
-    roots:
-      lmod: "$spack/modules/x86_64"
-  arch=linux-ubuntu20.04-aarch64:
-    roots:
-      lmod: "$spack/modules/aarch64"
-  arch=linux-ubuntu20.04-ppc64le:
-    roots:
-      lmod: "$spack/modules/ppc64le"
-  arch=linux-ubuntu20.04-x86_64_v2:
-    roots:
-      lmod: "$spack/modules/x86_64_v2"
-  arch=linux-ubuntu20.04-x86_64_v3:
-    roots:
-      lmod: "$spack/modules/x86_64_v3"
-  arch=linux-ubuntu20.04-x86_64_v4:
-    roots:
-      lmod: "$spack/modules/x86_64_v4"
-  arch=linux-ubuntu20.04-cascadelake:
-    roots:
-      lmod: "$spack/modules/cascadelake"
